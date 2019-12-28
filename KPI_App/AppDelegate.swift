@@ -16,12 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        let initialViewController : UIViewController
+        if !UserData.isEntered() {
+            let storyboard = UIStoryboard(name: "LoginScreen", bundle: nil)
+            initialViewController = storyboard.instantiateViewController(withIdentifier: "LogInNavi")
+        }
+        else{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            initialViewController = storyboard.instantiateViewController(withIdentifier: "MainTabBar")
+        }
+        
         window = UIWindow(frame: UIScreen.main.bounds)
-        
-        let containerViewController = ContainerViewController()
-        
-        window!.rootViewController = containerViewController
-        window!.makeKeyAndVisible()
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
         return true
     }
 

@@ -12,6 +12,7 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
     private var task: URLSessionTask?
     
     func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion) {
+        
         let session = URLSession.shared
         do {
             let request = try self.buildRequest(from: route)
@@ -40,7 +41,6 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
             
             if let headers = route.headers{
                 self.addAdditionalHeaders(headers, request: &request)
-                print("headersAdded")
             }
             switch route.task {
             case .request:

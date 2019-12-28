@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -69,9 +69,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YUW-Br-ykD">
-                                <rect key="frame" x="15" y="171" width="345" height="470"/>
+                                <rect key="frame" x="15" y="118" width="345" height="470"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" text="Username" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KTa-zD-Lml" customClass="LoginTextField" customModule="KPI_App" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" text="PaulSola" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KTa-zD-Lml" customClass="LoginTextField" customModule="KPI_App" customModuleProvider="target">
                                         <rect key="frame" x="8" y="191" width="329" height="70"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="70" id="4W9-H8-8WM"/>
@@ -86,7 +86,7 @@
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" text="Password" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bpQ-qt-1df" customClass="LoginTextField" customModule="KPI_App" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" text="PaulSola" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bpQ-qt-1df" customClass="LoginTextField" customModule="KPI_App" customModuleProvider="target">
                                         <rect key="frame" x="8" y="277" width="329" height="70"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="70" id="bbE-08-6Fu"/>
@@ -108,6 +108,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                         <state key="normal" title="LogIn"/>
+                                        <connections>
+                                            <action selector="logInPressed:" destination="258-DS-TjB" eventType="touchUpInside" id="iQq-7F-KIP"/>
+                                        </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="google-icon" translatesAutoresizingMaskIntoConstraints="NO" id="dRc-yw-7bQ">
                                         <rect key="frame" x="52.666666666666686" y="34" width="240" height="130"/>
@@ -141,12 +144,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="YUW-Br-ykD" firstAttribute="centerY" secondItem="Vtq-ry-bM1" secondAttribute="centerY" id="YRT-Q2-BKh"/>
+                            <constraint firstItem="YUW-Br-ykD" firstAttribute="top" secondItem="Sgp-SH-0HL" secondAttribute="bottom" constant="30" id="WH4-EN-r8g"/>
                             <constraint firstItem="YUW-Br-ykD" firstAttribute="centerX" secondItem="Vtq-ry-bM1" secondAttribute="centerX" id="ncs-aD-uiU"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="emailTextVIew" destination="KTa-zD-Lml" id="iSB-qO-E5K"/>
                         <outlet property="logInCard" destination="YUW-Br-ykD" id="h1Y-gc-Xbr"/>
+                        <outlet property="passwordTextView" destination="bpQ-qt-1df" id="42T-3Q-oF5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s3b-d6-C42" userLabel="First Responder" sceneMemberID="firstResponder"/>
