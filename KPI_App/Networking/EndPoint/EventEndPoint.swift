@@ -8,24 +8,22 @@
 
 import Foundation
 
-enum NetworkEnvironment {
-    case qa
-    case production
-    case staging
-}
 //add func-requests here
 public enum EventApi {
-    case newEvents()
+    case getEvents(page: Int, size : Int)
     case postEvent(title: String, description: String)
+    case getMapBoundsEvents(location : BoundsLocation)
+    case getEventsBySeach(query : String)
+    case visitEvent(id : Int)
 }
 
 extension EventApi: EndPointType {
     
     var environmentBaseURL : String {
-        switch NetworkManager.environment {
-        case .production: return "http://10.241.129.10:8080"
-        case .qa: return "http://10.241.129.10:8080"
-        case .staging: return "https://pure-cliffs-59123.herokuapp.com"
+        switch EventManager.environment {
+        case .production: return "https://events-core.herokuapp.com"
+        case .qa: return "https://events-core.herokuapp.com"
+        case .staging: return "https://events-core.herokuapp.com"
         }
     }
     
@@ -36,40 +34,61 @@ extension EventApi: EndPointType {
     
     var path: String {
         switch self {
-        case .newEvents:
-            return "info/new-events-create/"
+        case .getEvents:
+            return "/api/events"
         case .postEvent:
             return "/api/events/add"
+        case .getMapBoundsEvents:
+            return "/api/maps/events"
+        case .getEventsBySeach(_):
+            return "/api/events/find"
+        case .visitEvent(let id):
+            return "/api/events/visit/\(id)"
         }
-        
-        
-        
     }
     
-    var httpMethod: HTTPMethod {// добавить switch (get/post)
+    var httpMethod: HTTPMethod {
         switch self {
-        case .newEvents:
+        case .getEvents:
             return .get
         case .postEvent:
             return .post
+        case .getMapBoundsEvents:
+            return .get
+        case .getEventsBySeach:
+            return .get
+        case .visitEvent:
+            return .put
         }
     }
     
     var task: HTTPTask {
         
         switch self {
-        case .newEvents():
-            return .requestParametersAndHeaders(bodyParameters: nil, bodyEncoding: .jsonEncoding, urlParameters: nil, additionHeaders: ["someInfo":"someInfo"])
+        case .getEvents(let page, let size):
+            return .requestParametersAndHeaders(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: ["page" : page, "limit" : size], additionHeaders: nil)
+            
         case .postEvent(let title,let desc):
-            return .requestParametersAndHeaders(bodyParameters: ["title":title, "description":desc], bodyEncoding: .jsonEncoding, urlParameters: nil, additionHeaders: ["someInfo":"someInfo"])
-        default:
+            return .requestParametersAndHeaders(bodyParameters: ["title":title, "description":desc], bodyEncoding: .jsonEncoding, urlParameters: nil, additionHeaders: nil)
+            
+        case .getMapBoundsEvents(let location):
+            let params = ["leftBotLatitude": location.leftBottomLatitude,
+                          "leftBotLongitude": location.leftBottomLongitude,
+                          "rightTopLatitude": location.rightTopLatitude,
+                          "rightTopLongitude": location.rightTopLongitude]
+            
+            return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: params)
+            
+        case .getEventsBySeach(let query):
+            return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: ["q": query])
+        case .visitEvent:
             return .request
         }
-        
     }
     
     var headers: HTTPHeaders? {
-        return nil // access_token!!!!
+        return ["Authorization":TokenManager.getToken() ?? ""]
     }
+
 }
 
